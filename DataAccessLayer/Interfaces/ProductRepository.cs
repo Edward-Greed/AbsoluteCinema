@@ -19,7 +19,7 @@ namespace DataAccessLayer.Interfaces
         }
         public async Task<IEnumerable<ProductModel>> GetProductModelsAsync() 
         { 
-            return await productDbContext.Products.ToListAsync();
+            return await productDbContext.Products.Include(p => p.Category).ToListAsync();
         }
     }
 }

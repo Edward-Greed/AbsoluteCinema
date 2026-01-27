@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<DataAccessLayer.Entities.ProductModel>
+
+<h2>Product Listing</h2>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(product.ImagePath))
+                        {
+                            <img src="@product.ImagePath" alt="@product.Name" class="product-image" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.QuantityAvailable</td>
+                    <td>@product.Category?.CategoryName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
