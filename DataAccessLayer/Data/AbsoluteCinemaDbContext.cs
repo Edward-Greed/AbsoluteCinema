@@ -15,5 +15,9 @@ namespace DataAccessLayer.Data
         }
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<CartModel> Carts { get; set; }
+        public DbSet<CustomerModel>CustomerModels { get; set; }
+        public DbSet<OrderModel> OrderModels { get; set; }  
+        public DbSet<SellerModel> SellerModels { get; set; }
     }
 }
