@@ -67,11 +67,11 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.CustomerModel", b =>
                 {
-                    b.Property<int>("Customerid")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Customerid"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -109,9 +109,9 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Customerid");
+                    b.HasKey("CustomerId");
 
-                    b.ToTable("CustomerModels");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.OrderModel", b =>
@@ -125,7 +125,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CustomerModelCustomerid")
+                    b.Property<int?>("CustomerModelCustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
@@ -160,11 +160,11 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("CustomerModelCustomerid");
+                    b.HasIndex("CustomerModelCustomerId");
 
                     b.HasIndex("SellerModelSellerId");
 
-                    b.ToTable("OrderModels");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.ProductModel", b =>
@@ -174,6 +174,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CartModelCartId")
                         .HasColumnType("int");
@@ -192,6 +195,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("OrderModelOrderId")
                         .HasColumnType("int");
@@ -271,7 +277,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("SellerId");
 
-                    b.ToTable("SellerModels");
+                    b.ToTable("Sellers");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.UserModel", b =>
@@ -306,7 +312,7 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("DataAccessLayer.Entities.CustomerModel", null)
                         .WithMany("orders")
-                        .HasForeignKey("CustomerModelCustomerid");
+                        .HasForeignKey("CustomerModelCustomerId");
 
                     b.HasOne("DataAccessLayer.Entities.SellerModel", null)
                         .WithMany("Orders")

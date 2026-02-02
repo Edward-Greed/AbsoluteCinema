@@ -13,7 +13,7 @@ namespace DataAccessLayer.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Customerid {  get; set; }
+        public int CustomerId {  get; set; }
         public int UserId {  get; set; }
         
         public string FirstName { get; set; }

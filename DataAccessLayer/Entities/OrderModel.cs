@@ -25,6 +25,8 @@ namespace DataAccessLayer.Entities
         public DateTime ShippingDate { get; set; }
         public string ShippingAddress { get; set; }
         public ICollection<ProductModel> Products { get; set; }
+        
+
 
     }
 }
