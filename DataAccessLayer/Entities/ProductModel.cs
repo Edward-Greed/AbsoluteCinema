@@ -21,6 +21,7 @@ namespace DataAccessLayer.Entities
         public int QuantityAvailable { get; set; }
         public string ImagePath { get; set; }
         public int CategoryId { get; set; }
-        
+        public CategoryModel Category { get; set; }
+
     }
 }

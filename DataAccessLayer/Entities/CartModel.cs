@@ -20,6 +20,7 @@ namespace DataAccessLayer.Entities
         public int quantity { get; set; }
         public string wishlist { get; set; }
         public ICollection<ProductModel> Products { get; set; }
+        //
 
 
 
