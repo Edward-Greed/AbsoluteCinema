@@ -2,38 +2,34 @@
 
 <h2>Product Listing</h2>
 
-<div class="container">
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock Quantity</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrEmpty(product.ImagePath))
-                        {
-                            <img src="@product.ImagePath" alt="@product.Name" class="product-image" />
-                        }
-                        else
-                        {
-                            <span>No Image</span>
-                        }
-                    <td>@product.Name</td>
-                    <td>@product.Description</td>
-                    <td>@product.Price.ToString("C")</td>
-                    <td>@product.QuantityAvailable</td>
-                    <td>@product.Category?.CategoryName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<div class="product-grid">
+    @foreach (var product in Model)
+     {
+     <div class="product-card">
+         <div class="image-wrapper">
+             @if (!string.IsNullOrEmpty(product.ImagePath))
+              {
+                <img src="@product.ImagePath" alt="@product.Name"/>
+              }
+              else
+              {
+                <span>No Image</span>
+              }
+          </div>
+
+          <h3 class="product-name">@product.Name</h3>
+
+          <p class="product-description">@product.Description</p>
+
+          <div class="product-footer">
+             <span class="price">@product.Price.ToString("C")</span>
+               <button class="add-btn">
+                   Add to Cart
+               </button>
+           </div>
+           <div class="category-tag">
+               @product.Category?.CategoryName
+           </div>
+      </div>    
+     }
+ </div>
