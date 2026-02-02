@@ -16,6 +16,7 @@ namespace DataAccessLayer.Entities
         public int SellerId { get; set; }
         //foreign key
         public int ProductId { get; set; }
+        public int UserId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }

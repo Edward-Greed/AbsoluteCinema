@@ -19,5 +19,6 @@ namespace DataAccessLayer.Data
         public DbSet<CustomerModel>CustomerModels { get; set; }
         public DbSet<OrderModel> OrderModels { get; set; }  
         public DbSet<SellerModel> SellerModels { get; set; }
+        public DbSet<UserModel> Users {  get; set; }
     }
 }
