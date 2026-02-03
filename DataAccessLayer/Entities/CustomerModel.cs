@@ -10,26 +10,21 @@ namespace DataAccessLayer.Entities
 {
     public class CustomerModel
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CustomerId {  get; set; }
         public int UserId {  get; set; }
-        
+        public UserModel User { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string email { get; set; }
-        public int phoneNumber { get; set; }
+        public string Email { get; set; }
+        public int PhoneNumber { get; set; }
         public string Street { get; set; }
-        public int state { get; set; }
+        public int State { get; set; }
         public string City { get; set; }
         public int Zip { get; set; }
-        public string status { get; set; }
-        public ICollection<OrderModel> orders { get; set; }
-
-
-
-
-
+        public string Status { get; set; }
+        public ICollection<CartModel> Carts { get; set; }
+        public ICollection<OrderModel> Orders { get; set; }
     }
 }

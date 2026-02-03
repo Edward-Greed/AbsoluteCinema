@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
 {
-    public class CartModel
+    public class CartItemModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CartItemId { get; set; }
         public int CartId { get; set; }
-        public int CustomerId { get; set; }
-        public CustomerModel Customer { get; set; }
+        public CartModel Cart { get; set; }
+        public int ProductId { get; set; }
+        public ProductModel Product { get; set; }
         public int Quantity { get; set; }
-        public string WishList { get; set; }
-        public ICollection<CartItemModel> CartItems { get; set; }
-
     }
 }

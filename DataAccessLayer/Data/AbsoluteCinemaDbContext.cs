@@ -16,9 +16,38 @@ namespace DataAccessLayer.Data
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<CartModel> Carts { get; set; }
-        public DbSet<CustomerModel>Customers { get; set; }
+        public DbSet<CustomerModel> Customers { get; set; }
         public DbSet<OrderModel> Orders{ get; set; }  
         public DbSet<SellerModel> Sellers { get; set; }
         public DbSet<UserModel> Users {  get; set; }
+        public DbSet<OrderItemModel> OrderItems { get; set; }
+        public DbSet<CartItemModel> CartItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CartItemModel>()
+                .HasOne(ci => ci.Cart)
+                .WithMany(c => c.CartItems)
+                .HasForeignKey(ci => ci.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<CartItemModel>()
+                .HasOne(ci => ci.Product)
+                .WithMany(p => p.CartItems)
+                .HasForeignKey(ci => ci.ProductId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<OrderModel>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<OrderModel>()
+                .HasOne(o => o.Seller)
+                .WithMany(s => s.Orders)
+                .HasForeignKey(o => o.SellerId)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
     }
 }

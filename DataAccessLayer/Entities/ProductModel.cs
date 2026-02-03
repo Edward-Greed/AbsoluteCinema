@@ -13,18 +13,16 @@ namespace DataAccessLayer.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
-        //foreign key
         public int SellerId { get; set; }
-        public int CartId {  get; set; }
-        public int OrderId { get; set; }
+        public SellerModel Seller { get; set; }
+        public int CategoryId { get; set; }
+        public CategoryModel Category { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int QuantityAvailable { get; set; }
         public string ImagePath { get; set; }
-        
-        public int CategoryId { get; set; }
-        public CategoryModel Category {  get; set; }
-       
+        public ICollection<CartItemModel> CartItems { get; set; }
+        public ICollection<OrderItemModel> OrdersItems { get; set; }
     }
 }
