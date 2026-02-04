@@ -27,6 +27,19 @@ namespace DataAccessLayer.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<CustomerModel>()
+                .HasIndex(c => c.UserId)
+                .IsUnique();
+            modelBuilder.Entity<SellerModel>()
+                .HasIndex(s => s.UserId)
+                .IsUnique();
+            modelBuilder.Entity<CartItemModel>()
+                .HasIndex(ci => new { ci.CartId, ci.ProductId })
+                .IsUnique();
+            modelBuilder.Entity<OrderItemModel>()
+                .HasIndex(oi => new { oi.OrderId, oi.ProductId })
+                .IsUnique();
+
             modelBuilder.Entity<CartItemModel>()
                 .HasOne(ci => ci.Cart)
                 .WithMany(c => c.CartItems)
