@@ -33,7 +33,11 @@ namespace DataAccessLayer.Interfaces
             UserDbContext.Users.Add(user);
             UserDbContext.SaveChanges();
         }
-       
+        public UserModel GetByUsername(string username)
+        {
+            return UserDbContext.Users
+                .FirstOrDefault(u => u.UserName == username);
+        }
 
     }
 }

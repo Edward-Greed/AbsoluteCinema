@@ -37,5 +37,19 @@ namespace BusinessLogicLayer
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
+        public UserModel Authenticate(string username, string password)
+        {
+            var user = UserRepository.GetByUsername(username);
+
+            if (user == null)
+                return null;
+
+            bool validPassword = BCrypt.Net.BCrypt.Verify(
+                password,
+                user.Password
+            );
+
+            return validPassword ? user : null;
+        }
     }
 }

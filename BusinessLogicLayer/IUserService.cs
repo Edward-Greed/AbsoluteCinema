@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace BusinessLogicLayer
     public interface IUserService
     {
         string RegisterUser(string username, string email, string password);
+        UserModel Authenticate(string username, string password);
     }
 }

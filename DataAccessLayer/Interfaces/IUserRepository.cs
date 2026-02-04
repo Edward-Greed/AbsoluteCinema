@@ -10,6 +10,7 @@ namespace DataAccessLayer.Interfaces
     public interface IUserRepository
     {
         bool UserExists(string username);
+        UserModel GetByUsername(string username);
         UserModel GetByEmail(string email);
         void CreateUser(UserModel user);
     }
