@@ -11,7 +11,7 @@ namespace DataAccessLayer.Interfaces
     {
         bool UserExists(string username);
         UserModel GetByUsername(string username);
-        UserModel GetByEmail(string email);
+        bool EmailExists(string email);
         void CreateUser(UserModel user);
     }
 }

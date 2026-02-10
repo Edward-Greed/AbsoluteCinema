@@ -21,6 +21,9 @@ namespace BusinessLogicLayer
         {
             if (UserRepository.UserExists(username))
                 return "Username already exists";
+            if (UserRepository.EmailExists(email))
+                return "Email already being used";
+            
 
             var user = new UserModel
             {

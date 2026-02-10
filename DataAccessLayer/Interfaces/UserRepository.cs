@@ -19,9 +19,9 @@ namespace DataAccessLayer.Interfaces
 
        
 
-        public UserModel GetByEmail(string email)
+        public bool EmailExists(string email)
         {
-            return UserDbContext.Users.FirstOrDefault(u => u.Email == email);
+            return UserDbContext.Users.Any(u => u.Email == email);
         }
         public bool UserExists(string username)
         {

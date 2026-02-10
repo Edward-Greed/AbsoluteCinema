@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AbsoluteCinema.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" />
 </head>
 <body>
     <header>
@@ -32,7 +33,7 @@
                         
                             @if (User.Identity.IsAuthenticated)
                                 {
-                                     <li class="nav-item">
+                                    <li class="nav-item">
                                     <form asp-controller="Account" asp-action="Logout" method="post">
                                     <button type="submit">Logout</button>
                                     </form>

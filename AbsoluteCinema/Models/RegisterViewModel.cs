@@ -8,7 +8,8 @@ namespace AbsoluteCinema.Models
         [MinLength(6)]
         public string Username { get; set; }
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [RegularExpression(@".*\.com$", ErrorMessage = "Email must end with .com.")]
         public string Email { get; set; }
 
         [Required]
