@@ -13,8 +13,6 @@ namespace DataAccessLayer.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
-        public int SellerId { get; set; }
-        public SellerModel Seller { get; set; }
         public int CategoryId { get; set; }
         public CategoryModel Category { get; set; }
         public string Name { get; set; }
