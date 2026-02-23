@@ -18,7 +18,6 @@ namespace DataAccessLayer.Data
         public DbSet<CartModel> Carts { get; set; }
         public DbSet<CustomerModel> Customers { get; set; }
         public DbSet<OrderModel> Orders{ get; set; }  
-        public DbSet<SellerModel> Sellers { get; set; }
         public DbSet<UserModel> Users {  get; set; }
         public DbSet<OrderItemModel> OrderItems { get; set; }
         public DbSet<CartItemModel> CartItems { get; set; }
@@ -29,9 +28,6 @@ namespace DataAccessLayer.Data
 
             modelBuilder.Entity<CustomerModel>()
                 .HasIndex(c => c.UserId)
-                .IsUnique();
-            modelBuilder.Entity<SellerModel>()
-                .HasIndex(s => s.UserId)
                 .IsUnique();
             modelBuilder.Entity<CartItemModel>()
                 .HasIndex(ci => new { ci.CartId, ci.ProductId })
@@ -55,11 +51,6 @@ namespace DataAccessLayer.Data
                 .HasOne(o => o.Customer)
                 .WithMany(c => c.Orders)
                 .HasForeignKey(o => o.CustomerId)
-                .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<OrderModel>()
-                .HasOne(o => o.Seller)
-                .WithMany(s => s.Orders)
-                .HasForeignKey(o => o.SellerId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
