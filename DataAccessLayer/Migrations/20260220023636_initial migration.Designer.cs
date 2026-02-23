@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AbsoluteCinemaDbContext))]
-    [Migration("20260204042318_AddUniqueConstraints")]
-    partial class AddUniqueConstraints
+    [Migration("20260220023636_initial migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,19 +60,15 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerModelCustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("WishList")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CartId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerModelCustomerId");
 
                     b.ToTable("Carts");
                 });
@@ -363,13 +359,9 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.CartModel", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entities.CustomerModel", "Customer")
+                    b.HasOne("DataAccessLayer.Entities.CustomerModel", null)
                         .WithMany("Carts")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
+                        .HasForeignKey("CustomerModelCustomerId");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.CustomerModel", b =>

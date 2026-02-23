@@ -1,0 +1,41 @@
+﻿
+@model PromoCodeViewModel
+@{
+    ViewData["Title"] = "CreatePromo";
+}
+
+
+<form asp-action="CreatePromo" method="post">
+
+
+    <div class="mb-3">
+        <label>Promo Code</label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label>Discount Value</label>
+        <input asp-for="DiscountPercentage" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Expiration Date</label>
+        <input asp-for="ExpirationDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label class="form-check-label">Active</label>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Create Promo
+    </button>
+
+    <a asp-action="PromoCodes" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+

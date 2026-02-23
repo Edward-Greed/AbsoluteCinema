@@ -21,5 +21,16 @@ namespace DataAccessLayer.Interfaces
         { 
             return await productDbContext.Products.Include(p => p.Category).ToListAsync();
         }
+        public async Task<ProductModel> GetByIdAsync(int productId)
+        {
+            return await productDbContext.Products
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
+        }
+
+        public async Task DeleteAsync(ProductModel product)
+        {
+            productDbContext.Products.Remove(product);
+            await productDbContext.SaveChangesAsync();
+        }
     }
 }

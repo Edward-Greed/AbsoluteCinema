@@ -22,6 +22,7 @@ namespace DataAccessLayer.Data
         public DbSet<UserModel> Users {  get; set; }
         public DbSet<OrderItemModel> OrderItems { get; set; }
         public DbSet<CartItemModel> CartItems { get; set; }
+        public DbSet<PromoCodeModel> PromoCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

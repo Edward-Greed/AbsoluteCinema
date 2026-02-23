@@ -23,9 +23,13 @@
 
           <div class="product-footer">
              <span class="price">@product.Price.ToString("C")</span>
-               <button class="add-btn">
-                   Add to Cart
-               </button>
+                <form asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@product.ProductId" />
+                    <button type="submit" class="add-btn">
+                        Add to Cart
+                    </button>
+                </form>
+
            </div>
            <div class="category-tag">
                @product.Category?.CategoryName

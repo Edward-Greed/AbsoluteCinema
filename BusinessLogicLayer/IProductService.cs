@@ -10,5 +10,6 @@ namespace BusinessLogicLayer
     public interface IProductService
     {
         Task<IEnumerable<ProductModel>> GetProductModelsAsync();
+        Task DeleteProductAsync(int productId, int userId);
     }
 }

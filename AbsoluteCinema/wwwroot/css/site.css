@@ -108,3 +108,141 @@ body {
     font-size: 0.75rem;
     color: #666;
 }
+.cart-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.cart-content {
+    display: flex;
+    gap: 30px;
+}
+
+.cart-items {
+    flex: 2;
+}
+
+    .cart-items table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .cart-items th,
+    .cart-items td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+    .product-info img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+.qty-input {
+    width: 60px;
+    padding: 5px;
+}
+
+.btn-small {
+    padding: 5px 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: crimson;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-summary {
+    flex: 1;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    height: fit-content;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+    .summary-row.total {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+.btn-checkout {
+    display: block;
+    margin-top: 20px;
+    padding: 12px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 40px;
+}
+.qty-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    .qty-btn:hover {
+        background: #333;
+    }
+
+.qty-value {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+.applied-promo {
+    background: #f4fff4;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.btn-remove-promo {
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.discount {
+    color: green;
+}

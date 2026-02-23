@@ -57,19 +57,20 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerModelCustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("PromoCodeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WishList")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("CartId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerModelCustomerId");
+
+                    b.HasIndex("PromoCodeId");
 
                     b.ToTable("Carts");
                 });
@@ -258,6 +259,32 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.PromoCodeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromoCodes");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entities.SellerModel", b =>
                 {
                     b.Property<int>("SellerId")
@@ -360,13 +387,15 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.CartModel", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entities.CustomerModel", "Customer")
+                    b.HasOne("DataAccessLayer.Entities.CustomerModel", null)
                         .WithMany("Carts")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerModelCustomerId");
 
-                    b.Navigation("Customer");
+                    b.HasOne("DataAccessLayer.Entities.PromoCodeModel", "PromoCode")
+                        .WithMany()
+                        .HasForeignKey("PromoCodeId");
+
+                    b.Navigation("PromoCode");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.CustomerModel", b =>
