@@ -20,5 +20,13 @@ namespace BusinessLogicLayer
         {
             return await productRepository.GetProductModelsAsync();
         }
+        public async Task<ProductModel> GetProductByIdAsync(int id) 
+        {
+            return await productRepository.GetProductByIdAsync(id);
+        }
+        public async Task<IEnumerable<ProductModel>> GetRelatedProductsAsync(int categoryId, int productId) 
+        {
+            return await productRepository.GetRelatedProductsAsync(categoryId, productId);
+        }
     }
 }
