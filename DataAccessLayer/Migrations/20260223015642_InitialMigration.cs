@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccessLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,19 +98,17 @@ namespace DataAccessLayer.Migrations
                 {
                     CartId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    WishList = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CustomerModelCustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.CartId);
                     table.ForeignKey(
-                        name: "FK_Carts_Customers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_Carts_Customers_CustomerModelCustomerId",
+                        column: x => x.CustomerModelCustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CustomerId");
                 });
 
             migrationBuilder.CreateTable(
@@ -203,9 +201,9 @@ namespace DataAccessLayer.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_CustomerId",
+                name: "IX_Carts_CustomerModelCustomerId",
                 table: "Carts",
-                column: "CustomerId");
+                column: "CustomerModelCustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_UserId",
@@ -233,6 +231,20 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+<<<<<<<< HEAD:DataAccessLayer/Migrations/20260220023636_initial migration.cs
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_SellerId",
+                table: "Products",
+                column: "SellerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sellers_UserId",
+                table: "Sellers",
+                column: "UserId",
+                unique: true);
+========
+>>>>>>>> 6ff81ab9417061fc5f0d7957de4e5f40d18a9c03:DataAccessLayer/Migrations/20260223015642_InitialMigration.cs
         }
 
         /// <inheritdoc />

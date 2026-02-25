@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
 {
-    public class CartModel
+    public class PromoCodeModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CartId { get; set; }
-       // public int CustomerId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
-        public List<CartItemModel> CartItems { get; set; }
-        public int? PromoCodeId { get; set; }
-        public PromoCodeModel PromoCode { get; set; }
+        public string Code { get; set; }
 
+        public decimal DiscountPercentage { get; set; }
+
+        public DateTime ExpirationDate { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace AbsoluteCinema.Controllers
             var claims = new List<Claim>
     {
         new Claim(ClaimTypes.Name, model.Username)
+       
     };
 
             var identity = new ClaimsIdentity(

@@ -11,22 +11,30 @@ namespace BusinessLogicLayer
     public class ProductService : IProductService
     {
         private readonly IProductRepository productRepository;
+        private readonly ISellerRepository sellerRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, ISellerRepository sellerRepository)
         {
             this.productRepository = productRepository;
+            this.sellerRepository = sellerRepository;
         }
+        
         public async Task<IEnumerable<ProductModel>> GetProductModelsAsync()
         {
             return await productRepository.GetProductModelsAsync();
         }
-        public async Task<ProductModel> GetProductByIdAsync(int id) 
+        public async Task DeleteProductAsync(int productId, int userId)
         {
-            return await productRepository.GetProductByIdAsync(id);
-        }
-        public async Task<IEnumerable<ProductModel>> GetRelatedProductsAsync(int categoryId, int productId) 
-        {
-            return await productRepository.GetRelatedProductsAsync(categoryId, productId);
+            var seller = await sellerRepository.GetSellerByUserIdAsync(userId);
+            if (seller == null) return;
+
+            var product = await productRepository.GetByIdAsync(productId);
+            if (product == null) return;
+
+            if (product.SellerId != seller.SellerId)
+                return;
+
+            await productRepository.DeleteAsync(product);
         }
     }
 }

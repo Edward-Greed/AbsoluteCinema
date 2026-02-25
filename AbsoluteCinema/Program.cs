@@ -17,6 +17,10 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<ISellerService, SellerService>();
 //test start
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme
@@ -40,11 +44,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
-app.UseAuthorization();
-//test start
 app.UseAuthentication();
-//end 
+app.UseAuthorization();
+
 
 app.MapStaticAssets();
 

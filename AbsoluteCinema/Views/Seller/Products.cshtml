@@ -1,0 +1,49 @@
+﻿@using DataAccessLayer.Entities
+@model IEnumerable<ProductModel>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Manage Products</h2>
+
+<a asp-action="CreateProduct" class="btn btn-success mb-3">
+    Add New Product
+</a>
+<a asp-action="PromoCodes" class="btn btn-success mb-3">
+    Manage Promo codes
+</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>$@p.Price</td>
+                <td>@p.QuantityAvailable</td>
+                <td>
+                    <a asp-action="EditProduct" asp-route-id="@p.ProductId"
+                       class="btn btn-primary btn-sm">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeleteProduct" method="post">
+                        <input type="hidden" name="id" value="@p.ProductId" />
+                        <button type="submit" class="btn btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

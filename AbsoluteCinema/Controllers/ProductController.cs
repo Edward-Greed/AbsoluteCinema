@@ -1,14 +1,18 @@
 ﻿using AbsoluteCinema.Models;
 using BusinessLogicLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AbsoluteCinema.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService productService;
-        public ProductController(IProductService productService)
+        private readonly ICartService cartService;
+        public ProductController(IProductService productService, ICartService cartService)
         {
+            this.cartService = cartService;
             this.productService = productService;
         }
         public async Task<IActionResult> Index()
@@ -16,25 +20,6 @@ namespace AbsoluteCinema.Controllers
             var products = await productService.GetProductModelsAsync();
 
             return View(products);
-        }
-        public async Task<IActionResult> Details(int id) 
-        { 
-            var product = await productService.GetProductByIdAsync(id);
-
-            if (product == null) 
-            {
-                return NotFound();
-            }
-
-            var relatedProducts = await productService.GetRelatedProductsAsync(product.CategoryId, product.ProductId);
-            
-            var viewModel = new ProductDetailsViewModel
-            {
-                Product = product,
-                RelatedProducts = relatedProducts
-            };
-
-            return View(viewModel);
         }
     }
 }

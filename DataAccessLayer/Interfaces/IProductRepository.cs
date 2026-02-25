@@ -10,8 +10,7 @@ namespace DataAccessLayer.Interfaces
     public interface IProductRepository
     {
         Task<IEnumerable<ProductModel>> GetProductModelsAsync();
-        Task<ProductModel> GetProductByIdAsync(int id);
-        Task<IEnumerable<ProductModel>> GetRelatedProductsAsync(int categoryId, int productId);
-
+        Task DeleteAsync(ProductModel product);
+        Task<ProductModel> GetByIdAsync(int productId);
     }
 }
