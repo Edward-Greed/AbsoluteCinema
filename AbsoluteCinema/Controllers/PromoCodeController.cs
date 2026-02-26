@@ -1,4 +1,6 @@
-﻿using BusinessLogicLayer;
+﻿using AbsoluteCinema.Models;
+using BusinessLogicLayer;
+using DataAccessLayer.Data;
 using DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +9,12 @@ namespace AbsoluteCinema.Controllers
     public class PromoCodeController : Controller
     {
         private readonly IPromoCodeService promoCodeService;
+        private readonly AbsoluteCinemaDbContext _context;
 
-        public PromoCodeController(IPromoCodeService promoCodeService)
+        public PromoCodeController(IPromoCodeService promoCodeService, AbsoluteCinemaDbContext _context)
         {
             this.promoCodeService = promoCodeService;
+            this._context = _context;
         }
 
         public async Task<IActionResult> Index()
@@ -21,19 +25,28 @@ namespace AbsoluteCinema.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new PromoCodeViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PromoCodeModel promo)
+        public async Task<IActionResult> Create(PromoCodeViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(promo);
+                return View(model);
 
-            await promoCodeService.CreateAsync(promo);
+            var promo = new PromoCodeModel
+            {
+                Code = model.Code,
+                DiscountPercentage = model.DiscountPercentage,
+                IsActive = model.IsActive,
+                ExpirationDate = model.ExpirationDate
+            };
 
-            return RedirectToAction(nameof(Index));
+            _context.PromoCodes.Add(promo);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
     
