@@ -19,8 +19,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<ISellerRepository, SellerRepository>();
-builder.Services.AddScoped<ISellerService, SellerService>();
+builder.Services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
+builder.Services.AddScoped<IPromoCodeService, PromoCodeService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 //test start
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme

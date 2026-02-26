@@ -21,16 +21,41 @@ namespace DataAccessLayer.Interfaces
         { 
             return await productDbContext.Products.Include(p => p.Category).ToListAsync();
         }
-        public async Task<ProductModel> GetByIdAsync(int productId)
+        public async Task<List<ProductModel>> GetAllAsync()
         {
             return await productDbContext.Products
-                .FirstOrDefaultAsync(p => p.ProductId == productId);
+                .Include(p => p.Category)
+                .ToListAsync();
+        }
+
+        public async Task<ProductModel> GetByIdAsync(int id)
+        {
+            return await productDbContext.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+        }
+
+        public async Task AddAsync(ProductModel product)
+        {
+            productDbContext.Products.Add(product);
+            await productDbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(ProductModel product)
+        {
+            productDbContext.Products.Update(product);
+            await productDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(ProductModel product)
         {
             productDbContext.Products.Remove(product);
             await productDbContext.SaveChangesAsync();
+        }
+       
+        public async Task<IEnumerable<ProductModel>> GetRelatedProductsAsync(int categoryId, int productId)
+        {
+            return await productDbContext.Products.Where(p => p.CategoryId == categoryId && p.ProductId != productId).Include(p => p.Category).Take(2).ToListAsync();
         }
     }
 }

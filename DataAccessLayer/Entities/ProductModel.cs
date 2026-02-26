@@ -22,5 +22,6 @@ namespace DataAccessLayer.Entities
         public string ImagePath { get; set; }
         public ICollection<CartItemModel> CartItems { get; set; }
         public ICollection<OrderItemModel> OrdersItems { get; set; }
+        
     }
 }

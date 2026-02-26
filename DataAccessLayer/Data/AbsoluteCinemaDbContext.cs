@@ -53,6 +53,10 @@ namespace DataAccessLayer.Data
                 .WithMany(c => c.Orders)
                 .HasForeignKey(o => o.CustomerId)
                 .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<ProductModel>()
+        .HasOne(p => p.Category)
+        .WithMany(c => c.Products)
+        .HasForeignKey(p => p.CategoryId);
         }
     }
 }

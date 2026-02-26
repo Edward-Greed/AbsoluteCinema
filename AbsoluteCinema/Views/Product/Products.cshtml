@@ -6,10 +6,10 @@
 
 <h2>Manage Products</h2>
 
-<a asp-action="CreateProduct" class="btn btn-success mb-3">
+<a asp-action="Create" class="btn btn-success mb-3">
     Add New Product
 </a>
-<a asp-action="PromoCodes" class="btn btn-success mb-3">
+<a asp-action="Index" asp-controller="PromoCode" class="btn btn-success mb-3">
     Manage Promo codes
 </a>
 
@@ -30,13 +30,13 @@
                 <td>$@p.Price</td>
                 <td>@p.QuantityAvailable</td>
                 <td>
-                    <a asp-action="EditProduct" asp-route-id="@p.ProductId"
+                    <a asp-action="Edit" asp-route-id="@p.ProductId"
                        class="btn btn-primary btn-sm">
                         Edit
                     </a>
                 </td>
                 <td>
-                    <form asp-action="DeleteProduct" method="post">
+                    <form asp-action="Delete" method="post">
                         <input type="hidden" name="id" value="@p.ProductId" />
                         <button type="submit" class="btn btn-danger">
                             Delete

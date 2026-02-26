@@ -25,6 +25,22 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PromoCodes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PromoCodes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -99,6 +115,7 @@ namespace DataAccessLayer.Migrations
                     CartId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
+                    PromoCodeId = table.Column<int>(type: "int", nullable: true),
                     CustomerModelCustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -109,6 +126,11 @@ namespace DataAccessLayer.Migrations
                         column: x => x.CustomerModelCustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId");
+                    table.ForeignKey(
+                        name: "FK_Carts_PromoCodes_PromoCodeId",
+                        column: x => x.PromoCodeId,
+                        principalTable: "PromoCodes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -206,6 +228,11 @@ namespace DataAccessLayer.Migrations
                 column: "CustomerModelCustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_PromoCodeId",
+                table: "Carts",
+                column: "PromoCodeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_UserId",
                 table: "Customers",
                 column: "UserId",
@@ -231,20 +258,6 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-<<<<<<<< HEAD:DataAccessLayer/Migrations/20260220023636_initial migration.cs
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_SellerId",
-                table: "Products",
-                column: "SellerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sellers_UserId",
-                table: "Sellers",
-                column: "UserId",
-                unique: true);
-========
->>>>>>>> 6ff81ab9417061fc5f0d7957de4e5f40d18a9c03:DataAccessLayer/Migrations/20260223015642_InitialMigration.cs
         }
 
         /// <inheritdoc />
@@ -264,6 +277,9 @@ namespace DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "PromoCodes");
 
             migrationBuilder.DropTable(
                 name: "Customers");

@@ -6,6 +6,7 @@
     @foreach (var product in Model)
      {
      <div class="product-card">
+           <a asp-action="Details" asp-route-id="@product.ProductId" class="product-link">
          <div class="image-wrapper">
              @if (!string.IsNullOrEmpty(product.ImagePath))
               {
@@ -18,6 +19,8 @@
           </div>
 
           <h3 class="product-name">@product.Name</h3>
+
+          </a>
 
           <p class="product-description">@product.Description</p>
 

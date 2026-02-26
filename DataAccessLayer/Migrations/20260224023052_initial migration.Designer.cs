@@ -4,6 +4,7 @@ using DataAccessLayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(AbsoluteCinemaDbContext))]
-    partial class AbsoluteCinemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260224023052_initial migration")]
+    partial class initialmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,12 +90,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductModelProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryId");
-
-                    b.HasIndex("ProductModelProductId");
 
                     b.ToTable("Categories");
                 });
@@ -340,13 +338,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("PromoCode");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entities.CategoryModel", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.ProductModel", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("ProductModelProductId");
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entities.CustomerModel", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.UserModel", "User")
@@ -424,8 +415,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Entities.ProductModel", b =>
                 {
                     b.Navigation("CartItems");
-
-                    b.Navigation("Categories");
 
                     b.Navigation("OrdersItems");
                 });

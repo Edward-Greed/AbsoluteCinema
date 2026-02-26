@@ -11,30 +11,50 @@ namespace BusinessLogicLayer
     public class ProductService : IProductService
     {
         private readonly IProductRepository productRepository;
-        private readonly ISellerRepository sellerRepository;
+        
 
-        public ProductService(IProductRepository productRepository, ISellerRepository sellerRepository)
+        public ProductService(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
-            this.sellerRepository = sellerRepository;
+           
         }
         
         public async Task<IEnumerable<ProductModel>> GetProductModelsAsync()
         {
             return await productRepository.GetProductModelsAsync();
         }
-        public async Task DeleteProductAsync(int productId, int userId)
+        public async Task<List<ProductModel>> GetAllAsync()
         {
-            var seller = await sellerRepository.GetSellerByUserIdAsync(userId);
-            if (seller == null) return;
+            return await productRepository.GetAllAsync();
+        }
 
-            var product = await productRepository.GetByIdAsync(productId);
-            if (product == null) return;
+        public async Task<ProductModel> GetByIdAsync(int id)
+        {
+            return await productRepository.GetByIdAsync(id);
+        }
 
-            if (product.SellerId != seller.SellerId)
+        public async Task CreateAsync(ProductModel product)
+        {
+            await productRepository.AddAsync(product);
+        }
+
+        public async Task UpdateAsync(ProductModel product)
+        {
+            await productRepository.UpdateAsync(product);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var product = await productRepository.GetByIdAsync(id);
+            if (product == null)
                 return;
 
             await productRepository.DeleteAsync(product);
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetRelatedProductsAsync(int categoryId, int productId)
+        {
+            return await productRepository.GetRelatedProductsAsync(categoryId, productId);
         }
     }
 }
