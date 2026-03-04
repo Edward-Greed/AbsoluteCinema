@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="~/css/auth.css" />
 </head>
 <body>
+    @using System.Security.Claims
+
+    @{
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var isSeller = userIdClaim == "1";
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -51,12 +57,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                         </li>
-                        <li class="nav-item">
-    <a class="nav-link" asp-controller="Product" asp-action="Products">
-        Seller Panel
-    </a>
-</li>
-                       
+                        @if (User.Identity.IsAuthenticated && isSeller)
+                        {
+                            <li class="nav-item">
+
+                                <a class="nav-link" asp-controller="Product" asp-action="Products">
+                                    Seller Panel
+                                </a>
+                            </li>
+                        }
+
                      
                     </ul>
                 </div>
