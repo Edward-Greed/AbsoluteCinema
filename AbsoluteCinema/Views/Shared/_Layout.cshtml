@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/AbsoluteCinema.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/auth.css" />
 </head>
-<body>
+<body class="@ViewBag.CurrentCategory?.ToLower()">
     @using System.Security.Claims
 
     @{

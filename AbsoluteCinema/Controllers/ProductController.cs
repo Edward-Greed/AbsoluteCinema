@@ -23,9 +23,16 @@ namespace AbsoluteCinema.Controllers
             this.categoryService = categoryService;
             this._context = _context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category)
         {
             var products = await productService.GetProductModelsAsync();
+
+            if (!string.IsNullOrEmpty(category) && category != "All") 
+            {
+                products = products.Where(p => p.Category.CategoryName == category);
+            }
+            ViewBag.CurrentCategory = category ?? "All";
+
             return View(products);
         }
         public async Task<IActionResult> Products()

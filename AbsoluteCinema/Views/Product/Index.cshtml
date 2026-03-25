@@ -1,42 +1,62 @@
 ﻿@model IEnumerable<DataAccessLayer.Entities.ProductModel>
+@{
+    var currentCategory = ViewBag.CurrentCategory as string ?? "All";
+}
 
-<h2>Product Listing</h2>
+<div class="page-wrapper @currentCategory.ToLower()">
 
-<div class="product-grid">
-    @foreach (var product in Model)
-     {
-     <div class="product-card">
-           <a asp-action="Details" asp-route-id="@product.ProductId" class="product-link">
-         <div class="image-wrapper">
-             @if (!string.IsNullOrEmpty(product.ImagePath))
-              {
-                <img src="@product.ImagePath" alt="@product.Name"/>
-              }
-              else
-              {
-                <span>No Image</span>
-              }
-          </div>
+    <div class="shop-header">
+        <h1>Browse Movies, Musicals, & Collectibles</h1>
+        <p>Find your favorite movies, soundtracks, and props</p>
+    </div>
 
-          <h3 class="product-name">@product.Name</h3>
+    <h5>Browse by Genre</h5>
 
-          </a>
+    <div class="filter-bar">
+        <a asp-action="Index" asp-route-category="All" class="filter-btn @(currentCategory == "All" ? "active" : "")">All</a>
+        <a asp-action="Index" asp-route-category="Action" class="filter-btn @(currentCategory == "Action" ? "active" : "")">Action</a>
+        <a asp-action="Index" asp-route-category="Adventure" class="filter-btn @(currentCategory == "Adventure" ? "active" : "")">Adventure</a>
+        <a asp-action="Index" asp-route-category="Sci-Fi" class="filter-btn @(currentCategory == "Sci-Fi" ? "active" : "")">Sci-fi</a>
+        <a asp-action="Index" asp-route-category="Horror" class="filter-btn @(currentCategory == "Horror" ? "active" : "")">Horror</a>
+        <a asp-action="Index" asp-route-category="Musical" class="filter-btn @(currentCategory == "Musical" ? "active" : "")">Musical</a>
+    </div>
 
-          <p class="product-description">@product.Description</p>
+    <div class="product-grid">
+        @foreach (var product in Model)
+         {
+         <div class="product-card">
+               <a asp-action="Details" asp-route-id="@product.ProductId" class="product-link">
+             <div class="image-wrapper">
+                 @if (!string.IsNullOrEmpty(product.ImagePath))
+                  {
+                    <img src="@product.ImagePath" alt="@product.Name"/>
+                  }
+                  else
+                  {
+                    <span>No Image</span>
+                  }
+              </div>
 
-          <div class="product-footer">
-             <span class="price">@product.Price.ToString("C")</span>
-                <form asp-action="AddToCart" method="post">
-                    <input type="hidden" name="productId" value="@product.ProductId" />
-                    <button type="submit" class="add-btn">
-                        Add to Cart
-                    </button>
-                </form>
+              <h3 class="product-name">@product.Name</h3>
 
-           </div>
-           <div class="category-tag">
-               @product.Category?.CategoryName
-           </div>
-      </div>    
-     }
+              </a>
+
+              <p class="product-description">@product.Description</p>
+
+              <div class="product-footer">
+                 <span class="price">@product.Price.ToString("C")</span>
+                    <form asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@product.ProductId" />
+                        <button type="submit" class="add-btn">
+                            Add to Cart
+                        </button>
+                    </form>
+
+               </div>
+               <div class="category-tag">
+                   @product.Category?.CategoryName
+               </div>
+          </div>    
+         }
+     </div>
  </div>

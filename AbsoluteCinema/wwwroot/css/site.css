@@ -50,18 +50,16 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease;
+    transition: all 0.25s ease;
 }
 .product-card:hover {
-    transform: translateY(-5px);
-}
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+ }
 .image-wrapper {
-    height: 220px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-bottom: 12px;
+    height: 250px;
+    background: #f8fafc;
+    border-radius: 10px;
 }
 .image-wrapper img {
      max-width: 100%;
@@ -88,8 +86,8 @@ body {
     margin-top: auto;
 }
 .price {
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #2563eb;
 }
 .add-btn {
     background-color: #2563eb;
@@ -99,14 +97,19 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 .add-btn:hover {
     background-color: #1e4ed8;
+    transform: scale(1.05);
 }
 .category-tag {
-    margin-top: 8px;
-    font-size: 0.75rem;
-    color: #666;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 999px;
+    display: inline-block;
 }
 .cart-container {
     max-width: 1100px;
@@ -329,3 +332,128 @@ body {
     .back-btn:hover {
         text-decoration: underline;
     }
+
+.page-wrapper {
+    padding: 20px 40px;
+}
+.shop-header {
+    margin-bottom: 30px;
+}
+body.all {
+    background-color: e0f2fe;
+}
+.page-wrapper.all .price {
+    color: #1e4ed8;
+}
+.page-wrapper.all .add-btn {
+    background-color: #1e4ed8;
+    color: white;
+}
+.page-wrapper.all .filter-btn.active{
+    background-color: #1e4ed8;
+    color: white;
+}
+
+body.action{
+    background-color: #fee2e2;
+}
+.page-wrapper.action .price {
+    color: crimson;
+}
+.page-wrapper.action .add-btn {
+    background-color: crimson;
+    color: white;
+}
+.page-wrapper.action .filter-btn.active{
+    background-color: crimson;
+    color: white;
+}
+
+body.adventure{
+    background-color: #dcfce7;
+}
+.page-wrapper.adventure .price {
+    color: #16a34a;
+}
+.page-wrapper.adventure .add-btn {
+    background-color: #16a34a;
+    color: white;
+}
+.page-wrapper.adventure .filter-btn.active{
+    background-color: #16a34a;
+    color: white;
+}
+
+body.sci-fi {
+    background-color: #cffafe;
+}
+.page-wrapper.sci-fi .price {
+    color: #0891b2;
+}
+.page-wrapper.sci-fi .add-btn {
+    background-color: #0891b2;
+    color: white;
+}
+.page-wrapper.sci-fi .filter-btn.active{
+    background-color: #0891b2;
+    color: white;
+}
+
+body.horror {
+    background-color: #f3e8ff;
+}
+.page-wrapper.horror .price {
+    color: #8b5cf6;
+}
+.page-wrapper.horror .add-btn {
+    background-color: #8b5cf6;
+    color: white;
+}
+.page-wrapper.horror .filter-btn.active{
+    background-color: #8b5cf6;
+    color: white;
+}
+
+body.musical {
+    background-color: #fce7f3;
+}
+.page-wrapper.musical .price {
+    color: #db2777;
+}
+.page-wrapper.musical .add-btn {
+    background-color: #db2777;
+    color: white;
+}
+.page-wrapper.musical .filter-btn.active{
+    background-color: #db2777;
+    color: white;
+}
+.filter-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    background-color: #e5e7eb;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.filter-bar {
+    margin-bottom: 20px;
+}
+.filter-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+.filter-btn.active {
+    transform: scale(1.05);
+    color: white;
+    font-weight: bold;
+}
+* {
+    transition: all 0.2s ease-in-out;
+}
