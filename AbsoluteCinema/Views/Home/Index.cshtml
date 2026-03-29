@@ -1,15 +1,50 @@
-﻿@{
+﻿@model IEnumerable<DataAccessLayer.Entities.ProductModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    @if (User.Identity.IsAuthenticated)
-    {
-        <h2>Welcome, @User.Identity.Name!</h2>
-    }
-    else
-    {
-        <h2>Welcome, Guest</h2>
-    }
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="home-container">
+    <div class="hero">
+        <h1>Welcome to AbsoluteCinema</h1>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>Welcome @User.Identity.Name !</p>
+        }
+        else
+        {
+            <p>Discover movie collectibles!</p>
+        }
+
+        <a asp-controller="Product" asp-action="Index" class="shop-btn">
+            Shop Now
+        </a>
+    </div>
+
+    <div class="home-categories">
+        <a asp-controller="Product" asp-action="Index" asp-route-category="Action">Action</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-category="Adventure">Adventure</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-category="Horror">Horror</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-category="Sci-Fi">Sci-Fi</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-category="Musical">Musical</a>
+    </div>
+    <h2 class="section-title">Featured Products</h2>
+
+    <div class ="product-grid">
+        @foreach (var product in Model.Take(4))
+        {
+            <div class="product-card">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId">
+                    <img src="@product.ImagePath" alt="@product.Name"/>
+                    <h3> @product.Name</h3>
+                </a>
+
+                <p>@product.Price.ToString("C")</p>
+            </div>
+        }
+    </div>
+    <div class="promotion">
+        <h2>Exclusive Collectibles</h2>
+        <p>Get your hands on limited edition movie memorabilia!</p>
+    </div>
 </div>
