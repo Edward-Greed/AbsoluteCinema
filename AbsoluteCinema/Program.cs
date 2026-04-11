@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPromoCodeRepository, PromoCodeRepository>();
 builder.Services.AddScoped<IPromoCodeService, PromoCodeService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 //test start
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme

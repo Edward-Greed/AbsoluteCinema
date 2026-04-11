@@ -1,0 +1,119 @@
+﻿@using DataAccessLayer.Entities
+@model IEnumerable<CartItemModel>
+
+@{
+    ViewData["Title"] = "Checkout";
+    decimal subtotal = 0;
+    decimal shipping = subtotal > 100 ? 0 : 10; 
+    decimal taxRate = 0.1m; //10%
+    decimal tax = 0;
+    decimal total = 0;
+}
+
+<h2 class="mb-4">Checkout</h2>
+
+<div class="row">
+
+    <!-- 🛍️ Order Summary -->
+    <div class="col-md-7">
+        <div class="card p-3 shadow-sm">
+
+            <h4>Order Summary</h4>
+
+            @foreach (var item in Model)
+            {
+                var itemTotal = item.Quantity * item.Product.Price;
+                subtotal += itemTotal;
+
+                <div class="d-flex justify-content-between border-bottom py-2">
+                    <div>
+                        <strong>@item.Product.Name</strong><br />
+                        <small>Qty: @item.Quantity</small>
+                    </div>
+                    <div>@itemTotal.ToString("C")</div>
+                </div>
+            }
+
+            @{
+                tax = subtotal * taxRate;
+                 shipping = subtotal > 100 ? 0 : 10;
+                total = subtotal + tax + shipping;
+            }
+
+            <hr />
+
+            <div class="d-flex justify-content-between">
+                <span>Subtotal</span>
+                <span>@subtotal.ToString("C")</span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <span>Shipping</span>
+                <span>@shipping.ToString("C")</span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <span>Tax (10%)</span>
+                <span>@tax.ToString("C")</span>
+            </div>
+
+            <hr />
+
+            <div class="d-flex justify-content-between">
+                <strong>Total</strong>
+                <strong>@total.ToString("C")</strong>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 🚚 Checkout Form -->
+    <div class="col-md-5">
+        <div class="card p-3 shadow-sm">
+
+            <h4>Shipping Info</h4>
+
+            <form asp-action="Checkout" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <input name="ShippingAddress" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">City</label>
+                    <input class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Zip Code</label>
+                    <input class="form-control" required />
+                </div>
+                <!-- 🎟 PROMO CODE -->
+                <div class="mb-3">
+                    <label class="form-label">Promo Code</label>
+                    <input name="PromoCode" class="form-control" placeholder="Enter code" />
+                </div>
+                <hr />
+
+                <h5>Payment</h5>
+                <p class="text-muted">Demo checkout (no real payment)</p>
+
+
+               
+
+                <!-- Hidden totals sent to backend -->
+                <input type="hidden" name="Subtotal" value="@subtotal" />
+                <input type="hidden" name="Tax" value="@tax" />
+                <input type="hidden" name="Shipping" value="@shipping" />
+                <input type="hidden" name="Total" value="@total" />
+
+                <button type="submit" class="btn btn-success w-100">
+                    Place Order
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

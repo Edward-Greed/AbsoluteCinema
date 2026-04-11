@@ -16,5 +16,8 @@ namespace DataAccessLayer.Interfaces
         Task RemoveFromCartAsync(int userId, int productId);
         Task<bool> ApplyPromoCodeAsync(int userId, string code);
         Task RemovePromoCodeAsync(int userId);
+        Task ClearCartAsync(int userId);
+       
+      
     }
 }

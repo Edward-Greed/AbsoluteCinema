@@ -47,6 +47,10 @@ namespace BusinessLogicLayer
         {
             await _cartRepository.RemovePromoCodeAsync(userId);
         }
+        public async Task ClearCartAsync(int userId)
+        {
+           await _cartRepository.ClearCartAsync(userId);
+        }
 
     }
 }

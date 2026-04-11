@@ -51,6 +51,12 @@
                     <tbody>
                         @foreach (var item in items)
                         {
+                            @if (item.Quantity > item.Product.QuantityAvailable)
+                            {
+                                <div style="color:red; font-weight:bold;">
+                                    ⚠ @item.Product.Name only has @item.Product.QuantityAvailable Available!
+                                </div>
+                            }
                             <tr>
                                 <td class="product-info">
                                     <img src="@item.Product.ImagePath" alt="@item.Product.Name" />
@@ -74,11 +80,18 @@
                                         <span class="qty-value">@item.Quantity</span>
 
                                         <!-- PLUS -->
-                                        <form asp-action="UpdateQuantity" method="post">
-                                            <input type="hidden" name="productId" value="@item.ProductId" />
-                                            <input type="hidden" name="quantity" value="@(item.Quantity + 1)" />
-                                            <button type="submit" class="qty-btn plus">+</button>
-                                        </form>
+                                        @if (item.Quantity < item.Product.QuantityAvailable)
+                                        {
+                                            <form asp-action="UpdateQuantity" method="post">
+                                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                                <input type="hidden" name="quantity" value="@(item.Quantity + 1)" />
+                                                <button type="submit" class="qty-btn plus">+</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <button class="qty-btn plus" disabled title="Max stock reached">+</button>
+                                        }
 
                                     </div>
                                 </td>
@@ -101,7 +114,7 @@
                 </table>
             </div>
             <!----Promo code---->
-            <div class="promo-section">
+            @* <div class="promo-section">
             
 
                
@@ -142,7 +155,7 @@
                     </div>
                 }
 
-            </div>
+            </div> *@
 
             <!-- Summary -->
             <div class="cart-summary">
@@ -177,11 +190,22 @@
                     <span>Total:</span>
                     <span>@total.ToString("C")</span>
                 </div>
+                @{
+                    bool hasStockIssue = items.Any(i => i.Quantity > i.Product.QuantityAvailable);
+                }
 
-                <a asp-controller="Checkout" asp-action="Index"
-                   class="btn-checkout">
-                    Proceed to Checkout
-                </a>
+                @if (hasStockIssue)
+                {
+                    <button class="btn-checkout" disabled>
+                        Fix stock issues before checkout
+                    </button>
+                }
+                else
+                {
+                    <a asp-controller="Cart" asp-action="Checkout" class="btn btn-success">
+                        Checkout
+                    </a>
+                }
             </div>
 
         </div>

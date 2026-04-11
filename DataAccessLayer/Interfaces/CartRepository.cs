@@ -59,6 +59,7 @@ namespace DataAccessLayer.Interfaces
                 .Include(c => c.PromoCode)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+
         public async Task<int> GetCartItemCountAsync(int userId)
         {
             var cart = await CartDbContext.Carts
@@ -143,6 +144,20 @@ namespace DataAccessLayer.Interfaces
             cart.PromoCodeId = null;
 
             await CartDbContext.SaveChangesAsync();
+        }
+        public async Task ClearCartAsync(int userId)
+        {
+            var cart = await CartDbContext.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (cart == null)
+                return;
+
+            CartDbContext.CartItems.RemoveRange(cart.CartItems);
+            cart.PromoCodeId = null;
+
+            // ❌ NO SaveChanges here
         }
     }
 
