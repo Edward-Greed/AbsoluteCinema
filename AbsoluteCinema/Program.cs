@@ -24,6 +24,8 @@ builder.Services.AddScoped<IPromoCodeService, PromoCodeService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddHttpClient<ITmdbService, TmdbService>();
+
 //test start
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme

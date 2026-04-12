@@ -14,6 +14,7 @@ namespace DataAccessLayer.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public int TmbdId { get; set; }
         public ICollection<ProductModel> Products { get; set; }
     }
 }
