@@ -30,13 +30,13 @@
     </div>
     <h2 class="section-title">Featured Products</h2>
 
-    <div class ="product-grid">
+    <div class="product-slider">
         @foreach (var product in Model.Take(4))
         {
             <div class="product-card">
                 <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId">
-                    <img src="@product.ImagePath" alt="@product.Name"/>
-                    <h3> @product.Name</h3>
+                    <img src="@product.ImagePath" alt="@product.Name" />
+                    <h3>@product.Name</h3>
                 </a>
 
                 <p>@product.Price.ToString("C")</p>
