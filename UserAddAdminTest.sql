@@ -1,2 +1,2 @@
 ﻿INSERT INTO Users (UserName, Password, Email, IsCustomer) VALUES
-('admin', 'adminpassword', 'N/A', 0);
+('admin', 'adminpassword123', 'admin@gmail.com', 0);
