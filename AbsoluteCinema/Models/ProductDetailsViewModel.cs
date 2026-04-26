@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Entities;
+﻿using BusinessLogicLayer;
+using DataAccessLayer.Entities;
 
 namespace AbsoluteCinema.Models
 {
@@ -6,6 +7,7 @@ namespace AbsoluteCinema.Models
     {
         public ProductModel Product { get; set; }
         public IEnumerable<ProductModel> RelatedProducts { get; set; }
+        public List<MovieDto> Movies { get; set; }
     }
 }
 

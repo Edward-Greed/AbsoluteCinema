@@ -87,12 +87,10 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductModelProductId")
+                    b.Property<int>("TmdbId")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");
-
-                    b.HasIndex("ProductModelProductId");
 
                     b.ToTable("Categories");
                 });
@@ -340,13 +338,6 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("PromoCode");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.Entities.CategoryModel", b =>
-                {
-                    b.HasOne("DataAccessLayer.Entities.ProductModel", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("ProductModelProductId");
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entities.CustomerModel", b =>
                 {
                     b.HasOne("DataAccessLayer.Entities.UserModel", "User")
@@ -424,8 +415,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("DataAccessLayer.Entities.ProductModel", b =>
                 {
                     b.Navigation("CartItems");
-
-                    b.Navigation("Categories");
 
                     b.Navigation("OrdersItems");
                 });

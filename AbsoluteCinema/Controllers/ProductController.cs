@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace AbsoluteCinema.Controllers
 {
@@ -15,13 +16,15 @@ namespace AbsoluteCinema.Controllers
         private readonly ICartService cartService;
         private readonly ICategoryService categoryService;
         private readonly AbsoluteCinemaDbContext _context;
+        private readonly ITmdbService tmdbService;
 
-        public ProductController(IProductService productService, ICartService cartService, ICategoryService categoryService, AbsoluteCinemaDbContext _context)
+        public ProductController(IProductService productService, ICartService cartService, ICategoryService categoryService, AbsoluteCinemaDbContext _context, ITmdbService tmdbService)
         {
             this.cartService = cartService;
             this.productService = productService;
             this.categoryService = categoryService;
             this._context = _context;
+            this.tmdbService = tmdbService;
         }
         public async Task<IActionResult> Index(string category)
         {
@@ -166,13 +169,51 @@ namespace AbsoluteCinema.Controllers
 
             var relatedProducts = await productService.GetRelatedProductsAsync(product.CategoryId, product.ProductId);
 
+            var category = await _context.Categories.FindAsync(product.CategoryId);
+            var tmdbMovie = await tmdbService.GetMoviesByGenreAsync(category.TmdbId);
+
             var viewModel = new ProductDetailsViewModel
             {
                 Product = product,
-                RelatedProducts = relatedProducts
+                RelatedProducts = relatedProducts,
+                Movies = tmdbMovie.Take(5).ToList()
             };
 
             return View(viewModel);
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddTicketToCart(string movieTitle, string posterPath, string theaterName, int showTime, string seatNumber)
+        { 
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+           
+            var ticketCategory = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryName == "Tickets");
+
+            var ticketData = new
+            {
+                Theater = theaterName,
+                Time = DateTime.Today.AddHours(showTime),
+                Seat = seatNumber
+            };
+            
+            
+            var ticket = new ProductModel
+            {
+                Name = $"Ticket for {movieTitle}",
+                Description = JsonSerializer.Serialize(ticketData),
+                Price = 12.99m,
+                QuantityAvailable = 100,
+                CategoryId = ticketCategory.CategoryId,
+                ImagePath = $"https://image.tmdb.org/t/p/w200{posterPath}"
+
+            };
+
+            _context.Products.Add(ticket);
+            await _context.SaveChangesAsync();
+            await cartService.AddToCartAsync(userId, ticket.ProductId);
+
+            return RedirectToAction("Index", "Cart");
+
         }
 
 

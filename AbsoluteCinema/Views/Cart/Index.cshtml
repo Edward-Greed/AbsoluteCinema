@@ -1,4 +1,6 @@
 ﻿@model DataAccessLayer.Entities.CartModel
+@using System.Text.Json
+@using AbsoluteCinema.Models
 
 @{
     ViewData["Title"] = "Shopping Cart";
@@ -60,7 +62,28 @@
                             <tr>
                                 <td class="product-info">
                                     <img src="@item.Product.ImagePath" alt="@item.Product.Name" />
-                                    <span>@item.Product.Name</span>
+                                    <div>
+                                        <span>@item.Product.Name</span>
+                                        @{
+                                            TicketDetailsDto details = null;
+                                            try
+                                            {
+                                                details = JsonSerializer.Deserialize<TicketDetailsDto>(item.Product.Description);
+                                            }
+                                            catch
+                                            {
+                                                // Not a ticket
+                                            }
+                                        }
+                                        @if (details != null)
+                                        {
+                                            <div class="ticket-details">
+                                                <p>@details.Theater</p>
+                                                <p>@details.Time.ToString("f")</p>
+                                                <p>@details.Seat</p>
+                                            </div>    
+                                        }
+                                    </div>
                                 </td>
 
                                 <td>
