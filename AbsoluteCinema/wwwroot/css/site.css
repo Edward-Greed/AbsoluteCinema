@@ -628,22 +628,46 @@ body.musical {
     color: #555;
     margin-top: 5px;
 }
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    width: 400px;
+}
+.screen-curve {
+    height: 20px;
+    border-top: 4px solid red;
+    border-radius: 50%;
+    margin: 20px 0;
+}
 .seat-grid {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    flex-direction: column;
+    align-items: center;
+}
+.seat-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
 }
 .seat {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background: #ccc;
     border-radius: 6px;
-    cursor: pointer;
-}
-.seat:hover {
-    background: #999;
 }
 .seat.selected {
-    background: #e50914;
-    color:white;
+    background: cyan;
+}
+.seat.reserved{
+    background: red;
 }
