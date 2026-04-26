@@ -671,3 +671,59 @@ body.musical {
 .seat.reserved{
     background: red;
 }
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.product-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px;
+    width: 100%;
+}
+
+    .product-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+/* ARROW BUTTONS */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ccc; /* gray background */
+    color: #333;
+    border: none;
+    font-size: 24px;
+    padding: 12px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: all 0.3s ease; /* smooth hover effect */
+}
+
+    /* Left & Right positioning */
+    .slider-btn.left {
+        left: 10px;
+    }
+
+    .slider-btn.right {
+        right: 10px;
+    }
+
+    /*  Hover "pop" effect */
+    .slider-btn:hover {
+        background: #888; /* darker gray */
+        color: #fff; /* brighter arrow */
+        transform: translateY(-50%) scale(1.15); /* slight grow */
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3); /* pop shadow */
+    }
+
+    /* Optional: click feedback */
+    .slider-btn:active {
+        transform: translateY(-50%) scale(1.05);
+    }
