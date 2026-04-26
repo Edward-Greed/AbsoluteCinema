@@ -3,4 +3,5 @@
 ('Adventure', 12),
 ('Horror', 27),
 ('Sci-Fi', 878),
-('Musical', 10402);
+('Musical', 10402),
+('Tickets', 0);
