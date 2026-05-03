@@ -133,9 +133,16 @@ public class CartController : Controller
                 }
             }
 
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.UserId == userId);
+
+            if (customer == null)
+            {
+                return BadRequest("Customer Does Not Exist");
+            }
+
             var order = new OrderModel
             {
-                CustomerId = userId,
+                CustomerId = customer.CustomerId,
                 OrderDate = DateTime.UtcNow,
                 OrderStatus = "Pending",
                 TrackingNumber = Guid.NewGuid().ToString().Substring(0, 10),
@@ -174,9 +181,10 @@ public class CartController : Controller
                 return RedirectToAction("Login", "Account");
 
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.UserId == userId);
 
             var orders = await _context.Orders
-                .Where(o => o.CustomerId == userId)
+                .Where(o => o.CustomerId == customer.CustomerId)
                 .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
                 .OrderByDescending(o => o.OrderDate)
