@@ -21,59 +21,43 @@
         <a asp-action="Index" asp-route-category="Musical" class="filter-btn @(currentCategory == "Musical" ? "active" : "")">Musical</a>
     </div>
 
-    <div class="slider-wrapper">
-
-        <!-- LEFT ARROW -->
-        <button class="slider-btn left" onclick="scrollSlider(-1)">
-            &#10094;
-        </button>
-
-        <!-- SLIDER -->
-        <div class="product-slider" id="productSlider">
-            @foreach (var product in Model)
-            {
-                <div class="product-card">
-                    <a asp-action="Details" asp-route-id="@product.ProductId" class="product-link">
-
-                        <div class="image-wrapper">
-                            @if (!string.IsNullOrEmpty(product.ImagePath))
-                            {
-                                <img src="@product.ImagePath" alt="@product.Name" />
-                            }
-                            else
-                            {
-                                <span>No Image</span>
-                            }
-                        </div>
-
-                        <h3 class="product-name">@product.Name</h3>
-                    </a>
-
-                    <p class="product-description">@product.Description</p>
-
-                    <div class="product-footer">
-                        <span class="price">@product.Price.ToString("C")</span>
-
-                        <form asp-action="AddToCart" method="post">
-                            <input type="hidden" name="productId" value="@product.ProductId" />
-                            <button type="submit" class="add-btn">
-                                Add to Cart
-                            </button>
-                        </form>
+    <div class="product-grid">
+        @foreach (var product in Model)
+        {
+            <div class="product-card">
+                <a asp-action="Details" asp-route-id="@product.ProductId" class="product-link">
+                    <div class="image-wrapper">
+                        @if (!string.IsNullOrEmpty(product.ImagePath))
+                        {
+                            <img src="@product.ImagePath" alt="@product.Name" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
                     </div>
 
-                    <div class="category-tag">
-                        @product.Category?.CategoryName
-                    </div>
+                    <h3 class="product-name">@product.Name</h3>
+
+                </a>
+
+                <p class="product-description">@product.Description</p>
+
+                <div class="product-footer">
+                    <span class="price">@product.Price.ToString("C")</span>
+                    <form asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@product.ProductId" />
+                        <button type="submit" class="add-btn">
+                            Add to Cart
+                        </button>
+                    </form>
+
                 </div>
-            }
-        </div>
-
-        <!-- RIGHT ARROW -->
-        <button class="slider-btn right" onclick="scrollSlider(1)">
-            &#10095;
-        </button>
-
+                <div class="category-tag">
+                    @product.Category?.CategoryName
+                </div>
+            </div>
+        }
     </div>
  </div>
 <script>
