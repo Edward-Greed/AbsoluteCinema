@@ -10,8 +10,6 @@
         <p>Find your favorite movies, soundtracks, and props</p>
     </div>
 
-    <h5>Browse by Genre</h5>
-
     <div class="filter-bar">
         <a asp-action="Index" asp-route-category="All" class="filter-btn @(currentCategory == "All" ? "active" : "")">All</a>
         <a asp-action="Index" asp-route-category="Action" class="filter-btn @(currentCategory == "Action" ? "active" : "")">Action</a>
