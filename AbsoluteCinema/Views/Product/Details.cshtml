@@ -97,6 +97,7 @@
                     <option value="Cinemark">Cinemark</option>
                 </select>
 
+                <p></p>
                 <label>Showtime:</label>
                 <select name="showTime" required>
                     <option value="">Select Showtime</option>
@@ -142,6 +143,8 @@
                 let seat = document.createElement("div");
                 let seatLabel = String.fromCharCode(65 + i) + j;
                 seat.className = "seat";
+
+                seat.setAttribute("data-seat", seatLabel);
                 
                 if(Math.random() < 0.3){
                     seat.classList.add("reserved");

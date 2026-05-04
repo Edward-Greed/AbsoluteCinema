@@ -661,16 +661,28 @@ body.musical {
     margin-bottom: 6px;
 }
 .seat {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bold;
     background: #ccc;
     border-radius: 6px;
 }
 .seat.selected {
     background: cyan;
+    color: black;
 }
 .seat.reserved{
     background: red;
+    color: white;
+}
+.seat::after {
+    content: attr(data-seat);
+    font-size: 10px;
 }
 .slider-wrapper {
     position: relative;

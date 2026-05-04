@@ -29,6 +29,7 @@ namespace AbsoluteCinema.Controllers
         public async Task<IActionResult> Index(string category)
         {
             var products = await productService.GetProductModelsAsync();
+            products = products.Where(p => p.Category.CategoryName != "Tickets");
 
             if (!string.IsNullOrEmpty(category) && category != "All") 
             {
@@ -214,6 +215,22 @@ namespace AbsoluteCinema.Controllers
 
             return RedirectToAction("Index", "Cart");
 
+        }
+        public async Task<IActionResult> Search(string query) 
+        {
+            if (string.IsNullOrWhiteSpace(query)) 
+            {
+                return RedirectToAction("Index");
+            }
+
+            var products = await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Name.Contains(query));
+
+            if (products == null) 
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Details", new { id = products.ProductId });
         }
 
 

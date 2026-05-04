@@ -29,7 +29,9 @@
                 <a class="navbar-brand mx-auto logo" asp-controller="Home" asp-action="Index">AbsoluteCinema</a>
 
                 <div class="nav-right d-flex align-items-center">
-                    <input type="text" class="search-bar" placeholder="Search..."/>
+                    <form asp-controller="Product" asp-action="Search" method="get">
+                        <input type="text" name="query" class="search-bar" placeholder="Search..." />
+                    </form>
                     <a class="nav-link cart-icon" asp-controller="Cart" asp-action="Index">🛒</a>
 
                     @if (User.Identity.IsAuthenticated && isSeller)
